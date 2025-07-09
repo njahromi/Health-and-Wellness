@@ -1,0 +1,93 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Kafka metrics
+  - job_name: 'kafka'
+    static_configs:
+      - targets: ['kafka:9101']
+    metrics_path: /metrics
+
+  # Go services (Ingestion Service, API Gateway)
+  - job_name: 'go-services'
+    static_configs:
+      - targets: ['ingestion-service:8080', 'api-gateway:8080']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # Java services (User Profile, Processing, Notification)
+  - job_name: 'java-services'
+    static_configs:
+      - targets: ['user-profile-service:8080', 'processing-service:8080', 'notification-service:8080']
+    metrics_path: /actuator/prometheus
+    scrape_interval: 10s
+
+  # Python services (Analytics, Chatbot)
+  - job_name: 'python-services'
+    static_configs:
+      - targets: ['analytics-service:8080', 'chatbot-service:8080']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # PostgreSQL
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+    scrape_interval: 30s
+
+  # Redis
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+    scrape_interval: 30s
+
+  # Node Exporter for system metrics
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 30s
+
+  # cAdvisor for container metrics
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    scrape_interval: 30s
+
+  # Grafana
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['grafana:3000']
+    scrape_interval: 30s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ['localhost:9090'] 
