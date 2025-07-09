@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+kafka:
+  brokers:
+    - "localhost:9092"
+  topics:
+    activity: "health.activity.raw"
+    heart_rate: "health.heart_rate.raw"
+    sleep: "health.sleep.raw"
+    nutrition: "health.nutrition.raw"
+    weight: "health.weight.raw"
+    mood: "health.mood.raw"
+    hydration: "health.hydration.raw"
+    meditation: "health.meditation.raw"
+
+jaeger:
+  endpoint: "http://localhost:14268/api/traces"
+
+logging:
+  level: "info"
+  format: "json" 
