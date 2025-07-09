@@ -1,6 +1,24 @@
 # VitalFlow: Real-time Health & Wellness Insights Platform
 
-A scalable, event-driven platform that collects, processes, and analyzes health and wellness data from various sources, providing personalized insights and interactive features.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go Version](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org/)
+[![Python Version](https://img.shields.io/badge/Python-3.11+-green.svg)](https://python.org/)
+[![React Version](https://img.shields.io/badge/React-18.2+-blue.svg)](https://reactjs.org/)
+[![Docker](https://img.shields.io/badge/Docker-Required-blue.svg)](https://docker.com/)
+
+A comprehensive, scalable, event-driven platform that collects, processes, and analyzes health and wellness data from various sources, providing personalized insights and interactive features through a modern web dashboard.
+
+## 🎯 Project Overview
+
+VitalFlow demonstrates modern cloud-native development practices with a microservices architecture built using multiple programming languages and technologies. The platform showcases real-time data processing, event-driven design, and comprehensive monitoring capabilities.
+
+### Key Features
+- 🔄 **Real-time Data Processing** with Apache Kafka
+- 🏗️ **Microservices Architecture** with Go, Python, and Java
+- 📊 **Interactive Dashboard** with React and Ant Design
+- 📈 **Comprehensive Monitoring** with Prometheus, Grafana, and Jaeger
+- 🐳 **Containerized Deployment** with Docker and Kubernetes
+- ☁️ **Cloud-Native Design** ready for Azure deployment
 
 ## 🏗️ Architecture Overview
 
@@ -32,11 +50,12 @@ A scalable, event-driven platform that collects, processes, and analyzes health 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Docker & Docker Compose
-- Go 1.21+
-- Python 3.11+
-- Java 17+
-- Azure CLI (for cloud deployment)
+- **Docker & Docker Compose**: For running infrastructure services
+- **Go 1.21+**: For the ingestion service
+- **Python 3.11+**: For the data simulator
+- **Node.js 18+**: For the React frontend
+- **Java 17+**: For Spring Boot services (optional for initial setup)
+- **Git**: For version control
 
 ### Local Development
 ```bash
@@ -45,7 +64,13 @@ git clone <repository-url>
 cd Health-and-Wellness
 
 # Start infrastructure services
-docker-compose up -d kafka zookeeper redis postgres
+docker-compose up -d kafka zookeeper redis postgres prometheus grafana jaeger
+
+# Set up development environment
+make dev-setup
+
+# Build all services
+make build-all
 
 # Start microservices
 make start-services
